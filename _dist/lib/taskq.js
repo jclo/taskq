@@ -1,5 +1,5 @@
 /*! ****************************************************************************
- * TaskQ v0.0.0
+ * TaskQ v0.0.1
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
@@ -23,6 +23,10 @@
     // only CommonJS-like environments that support module.exports,
     // like Node.
     module.exports = factory(root);
+    // This is a hack to attach the lib to the browser root when this lib is
+    // included inside another lib and the whole is browserifyied:
+    /* eslint-disable-next-line no-param-reassign */
+    if (root.TaskQ === null) root.TaskQ = factory(root);
   } else {
     // Browser globals.
     /* eslint-disable-next-line no-param-reassign */
@@ -115,7 +119,7 @@
     };
 
     // Attaches a constant to ESLib that provides the version of the lib.
-    TaskQ.VERSION = '0.0.0';
+    TaskQ.VERSION = '0.0.1';
 
 
     // -- Public Static Methods ------------------------------------------------
