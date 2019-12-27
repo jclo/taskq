@@ -1,5 +1,5 @@
 /*! ****************************************************************************
- * TaskQ v0.0.1
+ * TaskQ v0.0.2
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
@@ -7,7 +7,7 @@
  * Released under the MIT license. You may obtain a copy of the License
  * at: http://www.opensource.org/licenses/mit-license.php).
  * ************************************************************************** */
-// Based on ES6.lib template v0.0.4
+// Based on ES6Libplus template v0.0.2
 // ESLint declarations
 /* global define */
 /* eslint strict: ["error", "function"] */
@@ -40,15 +40,24 @@
   // words for this library.
   /* eslint-disable one-var, semi-style */
   let TaskQ
-    , TQ
     ;
   /* eslint-enable one-var, semi-style */
 
   /* ***************************************************************************
    *
+   * Tree is an object that links all the internal IIFE modules.
+   *
+   * ************************************************************************ */
+  /* eslint-disable-next-line */
+  let $__TREE = {"src":{"taskq":{},"private":{"taskq":{}}}};
+  /* eslint-disable-next-line */
+  $__TREE.extend=function(o,m){var k=Object.keys(m);for(var i=0;i<k.length;i++){o[k[i]]=m[k[i]]}};
+
+  /** **************************************************************************
+   *
    * A library that processes job tasks sequentially.
    *
-   * prototypal.js is built upon the Prototypal Instantiation pattern. It
+   * taskq.js is built upon the Prototypal Instantiation pattern. It
    * returns an object by calling its constructor. It doesn't use the new
    * keyword.
    *
@@ -57,7 +66,7 @@
    *
    *
    * Constructor:
-   *  . TaskQ                      creates and returns the TaskQ object,
+   *  . TaskQ                  creates and returns the TaskQ object,
    *
    *
    * Public Static Methods:
@@ -65,8 +74,8 @@
    *
    *
    * Public Methods:
-   *  . _pushQ                      adds the least priority task to the task queue,
-   *  . _popQ                       adds the most priority task to the tasks queue,
+   *  . getString                   returns a string,
+   *  . getArray                    returns an array,
    *
    *
    *
@@ -77,15 +86,15 @@
    * @since        0.0.0
    * @version      -
    * ************************************************************************ */
+  /* - */
   /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
   (function() {
-    // IIFE
-
-    // -- Module path
+    // IIFE START
 
 
     // -- Local modules
+    const TQ = $__TREE.src.private.taskq;
 
 
     // -- Local constants
@@ -108,8 +117,8 @@
      *
      * @constructor (arg1)
      * @public
-     * @param {}              -,
-     * @returns {Object}      returns the TaskQ object,
+     * @param {}                -,
+     * @returns {Object}        returns the TaskQ object,
      * @since 0.0.0
      */
     TaskQ = function() {
@@ -118,8 +127,8 @@
       return obj;
     };
 
-    // Attaches a constant to ESLib that provides the version of the lib.
-    TaskQ.VERSION = '0.0.1';
+    // Attaches a constant to TaskQ that provides the version of the lib.
+    TaskQ.VERSION = '0.0.2';
 
 
     // -- Public Static Methods ------------------------------------------------
@@ -128,8 +137,8 @@
      * Returns a reference to this TaskQ object.
      *
      * Nota:
-     * Running TaskQ in noConflic mode, returns the TaskQ variable to its
-     _ previous owner.
+     * Running TaskQ in noConflic mode, returns the TaskQ variable to
+     * its previous owner.
      *
      * @method ()
      * @public
@@ -154,9 +163,9 @@
        *
        * @method (arg1, arg2)
        * @public
-       * @param {String}      the event name,
-       * @param {Function}    the event handler,
-       * @returns {Object}    returns this,
+       * @param {String}        the event name,
+       * @param {Function}      the event handler,
+       * @returns {Object}      returns this,
        * @since 0.0.0
        */
       pushQ(event, listener) {
@@ -169,9 +178,9 @@
        *
        * @method (arg1, arg2)
        * @public
-       * @param {String}      the event name,
-       * @param {Function}    the event handler,
-       * @returns {Object}    returns this,
+       * @param {String}        the event name,
+       * @param {Function}      the event handler,
+       * @returns {Object}      returns this,
        * @since 0.0.0
        */
       popQ(event, listener) {
@@ -179,11 +188,16 @@
         return this;
       },
     };
+
+
+    // -- Export
+    // none (TaskQ is attached to the global window)
+
+    // IIFE END
   }());
   /* eslint-enable one-var, semi-style, no-underscore-dangle */
 
-
-  /* ***************************************************************************
+  /** **************************************************************************
    *
    * Implements the TaskQ methods.
    *
@@ -203,19 +217,18 @@
    *
    *
    *
-   * @namespace    TASKQ.TQ
+   * @namespace    TaskQ.src.private.taskq
    * @dependencies none
    * @exports      -
    * @author       -
    * @since        0.0.0
    * @version      -
    * ************************************************************************ */
+  /* - */
   /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
   (function() {
-    // IIFE
-
-    // -- Module path
+    // IIFE START
 
 
     // -- Local modules
@@ -234,8 +247,8 @@
      *
      * @function ()
      * @private
-     * @param {}              -,
-     * @returns {Object}      the task queue schema,
+     * @param {}                -,
+     * @returns {Object}        the task queue schema,
      * @since 0.0.0
      */
     function _schema() {
@@ -250,9 +263,9 @@
      *
      * @function (arg1, arg2)
      * @private
-     * @param {Object}        the task queue,
-     * @param {Function}      the event handler,
-     * @returns {}            -,
+     * @param {Object}          the task queue,
+     * @param {Function}        the event handler,
+     * @returns {}              -,
      * @since 0.0.0
      */
     /* eslint-disable no-param-reassign */
@@ -268,10 +281,10 @@
      *
      * @function (arg1, arg2, arg3)
      * @private
-     * @param {Object}        the task queue,
-     * @param {String}        the event name,
-     * @param {Object}        the handler scope,
-     * @returns {}            -,
+     * @param {Object}          the task queue,
+     * @param {String}          the event name,
+     * @param {Object}          the handler scope,
+     * @returns {}              -,
      * @since 0.0.0
      */
     /* eslint-disable no-param-reassign, prefer-rest-params */
@@ -296,10 +309,10 @@
      *
      * @function (arg1, arg2, arg3)
      * @private
-     * @param {Object}        the task queue,
-     * @param {String}        the event name,
-     * @param {Object}        the handler scope,
-     * @returns {}            -,
+     * @param {Object}          the task queue,
+     * @param {String}          the event name,
+     * @param {Object}          the handler scope,
+     * @returns {}              -,
      * @since 0.0.0
      */
     /* eslint-disable no-param-reassign, prefer-rest-params */
@@ -325,7 +338,7 @@
 
     // -- Public Static Methods ------------------------------------------------
 
-    TQ = {
+    const TQ = {
 
       /**
        * Adds the least priority task to a task queue.
@@ -373,9 +386,14 @@
         }
       },
     };
+
+
+    // -- Export
+    $__TREE.extend($__TREE.src.private.taskq, TQ);
+
+    // IIFE END
   }());
   /* eslint-enable one-var, semi-style, no-underscore-dangle */
-
 
   // Returns the library name:
   return TaskQ;

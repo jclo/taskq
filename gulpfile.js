@@ -1,7 +1,5 @@
 /* eslint one-var: 0, semi-style: 0 */
 
-'use strict';
-
 // -- Node modules
 const { watch, series } = require('gulp')
     ;

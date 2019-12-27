@@ -1,8 +1,8 @@
-/* ***************************************************************************
+/** **************************************************************************
  *
  * A library that processes job tasks sequentially.
  *
- * prototypal.js is built upon the Prototypal Instantiation pattern. It
+ * taskq.js is built upon the Prototypal Instantiation pattern. It
  * returns an object by calling its constructor. It doesn't use the new
  * keyword.
  *
@@ -11,7 +11,7 @@
  *
  *
  * Constructor:
- *  . TaskQ                      creates and returns the TaskQ object,
+ *  . TaskQ                  creates and returns the TaskQ object,
  *
  *
  * Public Static Methods:
@@ -19,8 +19,8 @@
  *
  *
  * Public Methods:
- *  . _pushQ                      adds the least priority task to the task queue,
- *  . _popQ                       adds the most priority task to the tasks queue,
+ *  . getString                   returns a string,
+ *  . getArray                    returns an array,
  *
  *
  *
@@ -31,109 +31,111 @@
  * @since        0.0.0
  * @version      -
  * ************************************************************************ */
+/* global root */
 /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
-'use strict';
-
-(function() {
-  // IIFE
-
-  // -- Module path
+// IIFE_START
 
 
-  // -- Local modules
+// -- Local modules
+import TQ from './private/taskq';
 
 
-  // -- Local constants
-  // Saves the previous value of the library variable, so that it can be
-  // restored later on, if noConflict is used.
-  const previousTaskQ = root.TaskQ
-      ;
-
-
-  // -- Local variables
-  let methods
+// -- Local constants
+// Saves the previous value of the library variable, so that it can be
+// restored later on, if noConflict is used.
+const previousTaskQ = root.TaskQ
     ;
 
 
-  // -- Public ---------------------------------------------------------------
+// -- Local variables
+let methods
+  ;
+
+
+// -- Public ---------------------------------------------------------------
+
+/**
+ * Returns the TaskQ object.
+ * (Prototypal Instantiation Pattern)
+ *
+ * @constructor (arg1)
+ * @public
+ * @param {}                -,
+ * @returns {Object}        returns the TaskQ object,
+ * @since 0.0.0
+ */
+TaskQ = function() {
+  const obj = Object.create(methods);
+  obj._dQ = {};
+  return obj;
+};
+
+// Attaches a constant to TaskQ that provides the version of the lib.
+TaskQ.VERSION = '{{lib:version}}';
+
+
+// -- Public Static Methods ------------------------------------------------
+
+/**
+ * Returns a reference to this TaskQ object.
+ *
+ * Nota:
+ * Running TaskQ in noConflic mode, returns the TaskQ variable to
+ * its previous owner.
+ *
+ * @method ()
+ * @public
+ * @param {}              -,
+ * @returns {String}      returns the TaskQ object,
+ * @since 0.0.0
+ */
+/* istanbul ignore next */
+TaskQ.noConflict = function() {
+  /* eslint-disable-next-line no-param-reassign */
+  root.TaskQ = previousTaskQ;
+  return this;
+};
+
+
+// -- Public Methods -------------------------------------------------------
+
+methods = {
 
   /**
-   * Returns the TaskQ object.
-   * (Prototypal Instantiation Pattern)
+   * Adds the least priority task to the task queue,.
    *
-   * @constructor (arg1)
+   * @method (arg1, arg2)
    * @public
-   * @param {}              -,
-   * @returns {Object}      returns the TaskQ object,
+   * @param {String}        the event name,
+   * @param {Function}      the event handler,
+   * @returns {Object}      returns this,
    * @since 0.0.0
    */
-  TaskQ = function() {
-    const obj = Object.create(methods);
-    obj._dQ = {};
-    return obj;
-  };
-
-  // Attaches a constant to ESLib that provides the version of the lib.
-  TaskQ.VERSION = '{{lib:version}}';
-
-
-  // -- Public Static Methods ------------------------------------------------
-
-  /**
-   * Returns a reference to this TaskQ object.
-   *
-   * Nota:
-   * Running TaskQ in noConflic mode, returns the TaskQ variable to its
-   _ previous owner.
-   *
-   * @method ()
-   * @public
-   * @param {}              -,
-   * @returns {String}      returns the TaskQ object,
-   * @since 0.0.0
-   */
-  /* istanbul ignore next */
-  TaskQ.noConflict = function() {
-    /* eslint-disable-next-line no-param-reassign */
-    root.TaskQ = previousTaskQ;
+  pushQ(event, listener) {
+    TQ.pushQ(this._dQ, event, listener);
     return this;
-  };
+  },
+
+  /**
+   * Adds the most priority task to the tasks queue.
+   *
+   * @method (arg1, arg2)
+   * @public
+   * @param {String}        the event name,
+   * @param {Function}      the event handler,
+   * @returns {Object}      returns this,
+   * @since 0.0.0
+   */
+  popQ(event, listener) {
+    TQ.popQ(this._dQ, event, listener);
+    return this;
+  },
+};
 
 
-  // -- Public Methods -------------------------------------------------------
+// -- Export
+// none (TaskQ is attached to the global window)
 
-  methods = {
-
-    /**
-     * Adds the least priority task to the task queue,.
-     *
-     * @method (arg1, arg2)
-     * @public
-     * @param {String}      the event name,
-     * @param {Function}    the event handler,
-     * @returns {Object}    returns this,
-     * @since 0.0.0
-     */
-    pushQ(event, listener) {
-      TQ.pushQ(this._dQ, event, listener);
-      return this;
-    },
-
-    /**
-     * Adds the most priority task to the tasks queue.
-     *
-     * @method (arg1, arg2)
-     * @public
-     * @param {String}      the event name,
-     * @param {Function}    the event handler,
-     * @returns {Object}    returns this,
-     * @since 0.0.0
-     */
-    popQ(event, listener) {
-      TQ.popQ(this._dQ, event, listener);
-      return this;
-    },
-  };
-}());
+// IIFE_END
 /* eslint-enable one-var, semi-style, no-underscore-dangle */

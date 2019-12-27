@@ -1,7 +1,5 @@
 /* eslint */
 
-'use strict';
-
 module.exports = {
   dist: './_dist',
   libdir: './lib',
@@ -11,17 +9,21 @@ module.exports = {
   index: './index.js',
   // These are the Javascript files required to build the library.
   /* eslint-disable no-multi-spaces */
-  src: [
-    // The file _header must be declared the first because it creates the head
-    // of the umd module.
-    './src/_header',
+  src: {
+    // This is the header section of the UMD module:
+    header: './src/_header',
 
-    './src/taskq.js',
-    './src/private/taskq.js',
+    // This is the code of the library that is surrounded by the UMD module
+    // header and footer.
+    core: [
+      './src/taskq.js',
+      './src/private/taskq.js',
+    ],
 
-    // This file must always be the last one as it closes the umd module.
-    './src/_footer',
-  ],
+    // This is the footer section of the UMD module:
+    footer: './src/_footer',
+  },
+
   /* eslint-enable no-multi-spaces */
   license: ['/*! ****************************************************************************',
     ' * {{lib:name}} v{{lib:version}}',

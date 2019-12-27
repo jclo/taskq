@@ -1,5 +1,11 @@
 ### HEAD
 
+### 0.0.2 (December 27, 2019)
+
+  * Replaced the template ES6lib by ES6libplus,
+  * ...,
+
+
 ### 0.0.1 (December 10, 2019)
 
   * Added a hack in the header to allow the library to be browserifyied,
