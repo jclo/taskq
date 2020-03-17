@@ -1,5 +1,5 @@
 /*! ****************************************************************************
- * TaskQ v0.0.3-alpha.1
+ * TaskQ v0.0.3
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
@@ -129,7 +129,7 @@
     };
 
     // Attaches a constant to TaskQ that provides the version of the lib.
-    TaskQ.VERSION = '0.0.3-alpha.1';
+    TaskQ.VERSION = '0.0.3';
 
 
     // -- Public Static Methods ------------------------------------------------
