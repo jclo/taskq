@@ -11,7 +11,7 @@
  *
  *
  * Constructor:
- *  . TaskQ                  creates and returns the TaskQ object,
+ *  . TaskQ                       creates and returns the TaskQ object,
  *
  *
  * Public Static Methods:
@@ -19,8 +19,8 @@
  *
  *
  * Public Methods:
- *  . getString                   returns a string,
- *  . getArray                    returns an array,
+ *  . pushQ                       adds the least priority task to the task queue,
+ *  . popQ                        adds the most priority task to the tasks queue,
  *
  *
  *
@@ -37,18 +37,18 @@
 // IIFE_START
 
 
-// -- Local modules
+// -- Local Modules
 import TQ from './private/taskq';
 
 
-// -- Local constants
+// -- Local Constants
 // Saves the previous value of the library variable, so that it can be
 // restored later on, if noConflict is used.
 const previousTaskQ = root.TaskQ
     ;
 
 
-// -- Local variables
+// -- Local Variables
 let methods
   ;
 
@@ -59,7 +59,7 @@ let methods
  * Returns the TaskQ object.
  * (Prototypal Instantiation Pattern)
  *
- * @constructor (arg1)
+ * @constructor ()
  * @public
  * @param {}                -,
  * @returns {Object}        returns the TaskQ object,
@@ -86,8 +86,8 @@ TaskQ.VERSION = '{{lib:version}}';
  *
  * @method ()
  * @public
- * @param {}              -,
- * @returns {String}      returns the TaskQ object,
+ * @param {}                -,
+ * @returns {Object}        returns the TaskQ object,
  * @since 0.0.0
  */
 /* istanbul ignore next */
@@ -103,7 +103,7 @@ TaskQ.noConflict = function() {
 methods = {
 
   /**
-   * Adds the least priority task to the task queue,.
+   * Adds the least priority task to the task queue.
    *
    * @method (arg1, arg2)
    * @public

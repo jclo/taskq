@@ -4,18 +4,19 @@
   dot-notation: 0 */
 
 
-// -- Node modules
+// -- Vendor Modules
 const should     = require('chai').should()
     , { expect } = require('chai')
     ;
 
-// -- Local modules
+
+// -- Local Modules
 
 
-// -- Local constants
+// -- Local Constants
 
 
-// -- Local variables
+// -- Local Variables
 
 
 // -- Main

@@ -1,12 +1,12 @@
 /*! ****************************************************************************
- * TaskQ v0.0.3
+ * TaskQ v0.0.4
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
  * Copyright (c) 2020 Mobilabs <contact@mobilabs.fr> (http://www.mobilabs.fr).
  * Released under the MIT license. You may obtain a copy of the License
  * at: http://www.opensource.org/licenses/mit-license.php).
- * Built from ES6libplus v0.0.6.
+ * Built from ES6libplus v0.0.8.
  * ************************************************************************** */
 // ESLint declarations
 /* global define */
@@ -67,7 +67,7 @@
    *
    *
    * Constructor:
-   *  . TaskQ                  creates and returns the TaskQ object,
+   *  . TaskQ                       creates and returns the TaskQ object,
    *
    *
    * Public Static Methods:
@@ -75,8 +75,8 @@
    *
    *
    * Public Methods:
-   *  . getString                   returns a string,
-   *  . getArray                    returns an array,
+   *  . pushQ                       adds the least priority task to the task queue,
+   *  . popQ                        adds the most priority task to the tasks queue,
    *
    *
    *
@@ -91,21 +91,21 @@
   /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
   (function() {
-    // IIFE START
+    // START OF IIFE
 
 
-    // -- Local modules
+    // -- Local Modules
     const TQ = $__TREE.src.private.taskq;
 
 
-    // -- Local constants
+    // -- Local Constants
     // Saves the previous value of the library variable, so that it can be
     // restored later on, if noConflict is used.
     const previousTaskQ = root.TaskQ
         ;
 
 
-    // -- Local variables
+    // -- Local Variables
     let methods
       ;
 
@@ -116,7 +116,7 @@
      * Returns the TaskQ object.
      * (Prototypal Instantiation Pattern)
      *
-     * @constructor (arg1)
+     * @constructor ()
      * @public
      * @param {}                -,
      * @returns {Object}        returns the TaskQ object,
@@ -129,7 +129,7 @@
     };
 
     // Attaches a constant to TaskQ that provides the version of the lib.
-    TaskQ.VERSION = '0.0.3';
+    TaskQ.VERSION = '0.0.4';
 
 
     // -- Public Static Methods ------------------------------------------------
@@ -143,8 +143,8 @@
      *
      * @method ()
      * @public
-     * @param {}              -,
-     * @returns {String}      returns the TaskQ object,
+     * @param {}                -,
+     * @returns {Object}        returns the TaskQ object,
      * @since 0.0.0
      */
     /* istanbul ignore next */
@@ -160,7 +160,7 @@
     methods = {
 
       /**
-       * Adds the least priority task to the task queue,.
+       * Adds the least priority task to the task queue.
        *
        * @method (arg1, arg2)
        * @public
@@ -194,7 +194,7 @@
     // -- Export
     // none (TaskQ is attached to the global window)
 
-    // IIFE END
+    // END OF IIFE
   }());
   /* eslint-enable one-var, semi-style, no-underscore-dangle */
 
@@ -229,16 +229,16 @@
   /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
   (function() {
-    // IIFE START
+    // START OF IIFE
 
 
-    // -- Local modules
+    // -- Local Modules
 
 
-    // -- Local constants
+    // -- Local Constants
 
 
-    // -- Local variables
+    // -- Local Variables
 
 
     // -- Private Functions ----------------------------------------------------
@@ -392,7 +392,7 @@
     // -- Export
     $__TREE.extend($__TREE.src.private.taskq, TQ);
 
-    // IIFE END
+    // END OF IIFE
   }());
   /* eslint-enable one-var, semi-style, no-underscore-dangle */
 

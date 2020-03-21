@@ -3,20 +3,21 @@
 /* eslint one-var: 0, semi-style: 0 */
 
 
-// -- Node modules
+// -- Vendor Modules
 
 
-// -- Local modules
+// -- Local Modules
 const TaskQ       = require('../index.js')
     , constructor = require('./int/constructor.js')
     , methods     = require('./int/methods.js')
     ;
 
 
-// -- Local constants
+// -- Local Constants
 
 
-// -- Local variables
+// -- Local Variables
+
 
 // -- Main
 describe('Test TaskQ:', () => {
