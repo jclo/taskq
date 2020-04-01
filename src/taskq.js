@@ -1,4 +1,4 @@
-/** **************************************************************************
+/** ************************************************************************
  *
  * A library that processes job tasks sequentially.
  *
@@ -30,11 +30,12 @@
  * @author       -
  * @since        0.0.0
  * @version      -
- * ************************************************************************ */
+ * ********************************************************************** */
 /* global root */
 /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
-// IIFE_START
+
+// -- Vendor Modules
 
 
 // -- Local Modules
@@ -65,11 +66,11 @@ let methods
  * @returns {Object}        returns the TaskQ object,
  * @since 0.0.0
  */
-TaskQ = function() {
+function TaskQ() {
   const obj = Object.create(methods);
   obj._dQ = {};
   return obj;
-};
+}
 
 // Attaches a constant to TaskQ that provides the version of the lib.
 TaskQ.VERSION = '{{lib:version}}';
@@ -135,7 +136,6 @@ methods = {
 
 
 // -- Export
-// none (TaskQ is attached to the global window)
+export default TaskQ;
 
-// IIFE_END
 /* eslint-enable one-var, semi-style, no-underscore-dangle */

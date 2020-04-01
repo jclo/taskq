@@ -18,12 +18,10 @@ const config = require('./config')
 
 
 // -- Local Constants
-const { dist }     = config
-    , { libdir }   = config
-    , { libname }  = config
-    , { noparent } = config
-    , name         = libname.replace(/\s+/g, '').toLowerCase()
-    , { license }  = config
+const { dist }    = config
+    , { libdir }  = config
+    , { name }    = config
+    , { license } = config
     ;
 
 
@@ -51,14 +49,6 @@ function copydev() {
     .pipe(dest(`${dist}/lib`));
 }
 
-// Copies the development version without parent.
-function makenoparentlib() {
-  return src(`${libdir}/${name}${noparent}.js`)
-    .pipe(header(license))
-    .pipe(replace(/ {2}'use strict';\n\n/g, ''))
-    .pipe(dest(`${dist}/lib`));
-}
-
 // Creates the minified version.
 function makeminified() {
   return src(`${libdir}/${name}.js`)
@@ -74,5 +64,5 @@ function makeminified() {
 
 module.exports = series(
   deldist,
-  parallel(doskeleton, copydev, makenoparentlib, makeminified),
+  parallel(doskeleton, copydev, makeminified),
 );

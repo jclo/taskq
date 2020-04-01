@@ -1,15 +1,15 @@
 // ESLint declarations:
-/* global describe */
-/* eslint one-var: 0, semi-style: 0 */
+/* global describe, it */
+/* eslint one-var: 0, no-unused-vars: 0, semi-style: 0 */
 
 
 // -- Vendor Modules
 
 
 // -- Local Modules
-const TaskQ       = require('../index.js')
-    , constructor = require('./int/constructor.js')
-    , methods     = require('./int/methods.js')
+const TaskQ       = require('../src/taskq').default
+    , constructor = require('./int/constructor')
+    , methods     = require('./int/methods')
     ;
 
 

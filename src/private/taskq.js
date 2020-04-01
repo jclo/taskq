@@ -1,34 +1,34 @@
-/** **************************************************************************
+/** ************************************************************************
  *
  * Implements the TaskQ methods.
  *
  * taskq.js is just a literal object that contains a set of functions. It
  * can't be intantiated.
  *
+ *
  * Private Functions:
- *  . _schema                     returns the schema to the task queue,
- *  . _addEvent                   adds a non registered event to the task queue,
- *  . _fireQ                      fires the least recent task in the queue,
- *  . _fireQL                     fires the most recent task in the queue,
+ *  . none,
  *
  *
  * Public Static Methods:
- *  . _pushQ                      adds the least priority task to the task queue,
- *  . _popQ                       adds the most priority task to the tasks queue,
+ *  . noConflict                  returns a reference to this TaskQ object,
+ *  . getString                   returns a string,
+ *  . getArray                    returns an array,
  *
  *
  *
- * @namespace    TaskQ.src.private.taskq
+ * @namespace    -
  * @dependencies none
  * @exports      -
  * @author       -
  * @since        0.0.0
  * @version      -
- * ************************************************************************ */
+ * ********************************************************************** */
 /* global */
 /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
-// IIFE_START
+
+// -- Vendor Modules
 
 
 // -- Local Modules
@@ -191,5 +191,4 @@ const TQ = {
 // -- Export
 export default TQ;
 
-// IIFE_END
 /* eslint-enable one-var, semi-style, no-underscore-dangle */
