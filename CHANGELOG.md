@@ -4,7 +4,7 @@
 ### 0.0.5 (April 1, 2020)
 
   * Updated the project with the boilerplate ES6Kadoo,
-  * ...,
+  * Release.
 
 
 ### 0.0.4 (March 21, 2020)
