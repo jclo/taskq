@@ -1,6 +1,7 @@
 /* eslint one-var: 0, import/no-extraneous-dependencies: 0, semi-style: 0,
   object-curly-newline: 0 */
 
+'use strict';
 
 // -- Vendor Modules
 const { src, dest, series, parallel } = require('gulp')
@@ -49,8 +50,8 @@ function copydev() {
     .pipe(dest(`${dist}/lib`));
 }
 
-// Copies the es6 development version.
-function copyes6dev() {
+// Copies the module development version.
+function copydevm() {
   return src(`${libdir}/${name}.mjs`)
     .pipe(header(license))
     .pipe(dest(`${dist}/lib`));
@@ -66,8 +67,8 @@ function makeminified() {
     .pipe(dest(`${dist}/lib`));
 }
 
-// Creates the minified version.
-function makees6minified() {
+// Creates the module minified version.
+function makeminifiedm() {
   return src(`${libdir}/${name}.mjs`)
     .pipe(replace('/*! ***', '/** ***'))
     .pipe(uglify())
@@ -81,5 +82,5 @@ function makees6minified() {
 
 module.exports = series(
   deldist,
-  parallel(doskeleton, copydev, copyes6dev, makeminified, makees6minified),
+  parallel(doskeleton, copydev, copydevm, makeminified, makeminifiedm),
 );

@@ -3,6 +3,7 @@
 /* eslint one-var: 0, no-unused-vars: 0, semi-style: 0, no-underscore-dangle: 0,
   dot-notation: 0 */
 
+'use strict';
 
 // -- Vendor Modules
 const should     = require('chai').should()

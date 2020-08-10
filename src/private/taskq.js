@@ -1,19 +1,20 @@
-/** ************************************************************************
+/** **************************************************************************
  *
  * Implements the TaskQ methods.
  *
  * taskq.js is just a literal object that contains a set of functions. It
  * can't be intantiated.
  *
- *
  * Private Functions:
- *  . none,
+ *  . _schema                     returns the schema to the task queue,
+ *  . _addEvent                   adds a non registered event to the task queue,
+ *  . _fireQ                      fires the least recent tasks in the tasq queue,
+ *  . _fireQL                     fires the most recent task in the task queue,
  *
  *
  * Public Static Methods:
- *  . noConflict                  returns a reference to this TaskQ object,
- *  . getString                   returns a string,
- *  . getArray                    returns an array,
+ *  . pushQ                       adds the least priority task to a task queue,
+ *  . popQ                        adds the most priority task to the tasks queue,
  *
  *
  *
@@ -23,172 +24,176 @@
  * @author       -
  * @since        0.0.0
  * @version      -
- * ********************************************************************** */
+ * ************************************************************************ */
 /* global */
-/* eslint-disable one-var, semi-style, no-underscore-dangle */
+/* eslint-disable semi-style, no-underscore-dangle */
+
+'use strict';
+
+(function() {
+  // START OF IIFE
 
 
-// -- Vendor Modules
+  // -- Module Path
 
 
-// -- Local Modules
+  // -- Local Modules
 
 
-// -- Local Constants
+  // -- Local Constants
 
 
-// -- Local Variables
+  // -- Local Variables
 
 
-// -- Private Functions ----------------------------------------------------
+  // -- Private Functions ----------------------------------------------------
 
-/**
- * Returns the schema to the task queue.
- *
- * @function ()
- * @private
- * @param {}                -,
- * @returns {Object}        the task queue schema,
- * @since 0.0.0
- */
-function _schema() {
-  return {
-    firing: false,
-    listeners: [],
-  };
-}
-
-/**
- * Adds a non registered event to the task queue.
- *
- * @function (arg1, arg2)
- * @private
- * @param {Object}          the task queue,
- * @param {Function}        the event handler,
- * @returns {}              -,
- * @since 0.0.0
- */
-/* eslint-disable no-param-reassign */
-function _addEvent(dQ, event) {
-  if (typeof event === 'string' && !Object.prototype.hasOwnProperty.call(dQ, event)) {
-    dQ[event] = _schema();
+  /**
+   * Returns the schema to the task queue.
+   *
+   * @function ()
+   * @private
+   * @param {}              -,
+   * @returns {Object}      the task queue schema,
+   * @since 0.0.0
+   */
+  function _schema() {
+    return {
+      firing: false,
+      listeners: [],
+    };
   }
-}
-/* eslint-enable no-param-reassign */
-
-/**
- * Fires the least recent tasks in the tasq queue.
- *
- * @function (arg1, arg2, arg3)
- * @private
- * @param {Object}          the task queue,
- * @param {String}          the event name,
- * @param {Object}          the handler scope,
- * @returns {}              -,
- * @since 0.0.0
- */
-/* eslint-disable no-param-reassign, prefer-rest-params */
-function _fireQ(dQ, event, scope) {
-  const funcs = dQ[event].listeners;
-
-  dQ[event].firing = true;
-  (function next() {
-    if (funcs.length > 0) {
-      funcs
-        .shift()
-        .apply(scope || {}, [next].concat(Array.prototype.slice.call(arguments, 0)));
-    } else {
-      dQ[event].firing = false;
-    }
-  }());
-}
-/* eslint-enable no-param-reassign, prefer-rest-params */
-
-/**
- * Fires the most recent task in the task queue.
- *
- * @function (arg1, arg2, arg3)
- * @private
- * @param {Object}          the task queue,
- * @param {String}          the event name,
- * @param {Object}          the handler scope,
- * @returns {}              -,
- * @since 0.0.0
- */
-/* eslint-disable no-param-reassign, prefer-rest-params */
-function _fireQL(dQ, event, scope) {
-  const funcs = dQ[event].listeners;
-
-  dQ[event].firing = true;
-  (function next() {
-    if (funcs.length > 0) {
-      while (funcs.length > 1) { funcs.shift(); }
-      funcs
-        .shift()
-        /* eslint-disable-next-line prefer-rest-params */
-        .apply(scope || {}, [next].concat(Array.prototype.slice.call(arguments, 0)))
-      ;
-    } else {
-      dQ[event].firing = false;
-    }
-  }());
-}
-/* eslint-enable no-param-reassign, prefer-rest-params */
-
-
-// -- Public Static Methods ------------------------------------------------
-
-const TQ = {
 
   /**
-   * Adds the least priority task to a task queue.
+   * Adds a non registered event to the task queue.
    *
-   * @method (arg1, arg2)
-   * @public
-   * @param {String}        the event name,
+   * @function (arg1, arg2)
+   * @private
+   * @param {Object}        the task queue,
    * @param {Function}      the event handler,
    * @returns {}            -,
    * @since 0.0.0
    */
-  pushQ(dQ, event, listener) {
-    _addEvent(dQ, event);
-
-    if (typeof event === 'string' && typeof listener === 'function') {
-      dQ[event].listeners.push(listener);
-
-      // Fire the event if _fireQ is not running:
-      if (!dQ[event].firing) {
-        _fireQ(dQ, event);
-      }
+  /* eslint-disable no-param-reassign */
+  function _addEvent(dQ, event) {
+    if (typeof event === 'string' && !Object.prototype.hasOwnProperty.call(dQ, event)) {
+      dQ[event] = _schema();
     }
-  },
+  }
+  /* eslint-enable no-param-reassign */
 
   /**
-   * Adds the most priority task to the tasks queue.
+   * Fires the least recent tasks in the tasq queue.
    *
-   * @method (arg1, arg2)
-   * @public
+   * @function (arg1, arg2, arg3)
+   * @private
+   * @param {Object}        the task queue,
    * @param {String}        the event name,
-   * @param {Function}      the event handler,
+   * @param {Object}        the handler scope,
    * @returns {}            -,
    * @since 0.0.0
    */
-  popQ(dQ, event, listener) {
-    _addEvent(dQ, event);
+  /* eslint-disable no-param-reassign, prefer-rest-params */
+  function _fireQ(dQ, event, scope) {
+    const funcs = dQ[event].listeners;
 
-    if (typeof event === 'string' && typeof listener === 'function') {
-      dQ[event].listeners.push(listener);
-
-      // Fire the event if _fireQ is not running:
-      if (!dQ[event].firing) {
-        _fireQL(dQ, event);
+    dQ[event].firing = true;
+    (function next() {
+      if (funcs.length > 0) {
+        funcs
+          .shift()
+          .apply(scope || {}, [next].concat(Array.prototype.slice.call(arguments, 0)));
+      } else {
+        dQ[event].firing = false;
       }
-    }
-  },
-};
+    }());
+  }
+  /* eslint-enable no-param-reassign, prefer-rest-params */
+
+  /**
+   * Fires the most recent task in the task queue.
+   *
+   * @function (arg1, arg2, arg3)
+   * @private
+   * @param {Object}        the task queue,
+   * @param {String}        the event name,
+   * @param {Object}        the handler scope,
+   * @returns {}            -,
+   * @since 0.0.0
+   */
+  /* eslint-disable no-param-reassign, prefer-rest-params */
+  function _fireQL(dQ, event, scope) {
+    const funcs = dQ[event].listeners;
+
+    dQ[event].firing = true;
+    (function next() {
+      if (funcs.length > 0) {
+        while (funcs.length > 1) { funcs.shift(); }
+        funcs
+          .shift()
+          /* eslint-disable-next-line prefer-rest-params */
+          .apply(scope || {}, [next].concat(Array.prototype.slice.call(arguments, 0)))
+        ;
+      } else {
+        dQ[event].firing = false;
+      }
+    }());
+  }
+  /* eslint-enable no-param-reassign, prefer-rest-params */
 
 
-// -- Export
-export default TQ;
+  // -- Public Static Methods ------------------------------------------------
 
-/* eslint-enable one-var, semi-style, no-underscore-dangle */
+  TQ = {
+
+    /**
+     * Adds the least priority task to a task queue.
+     *
+     * @method (arg1, arg2)
+     * @public
+     * @param {String}      the event name,
+     * @param {Function}    the event handler,
+     * @returns {}          -,
+     * @since 0.0.0
+     */
+    pushQ(dQ, event, listener) {
+      _addEvent(dQ, event);
+
+      if (typeof event === 'string' && typeof listener === 'function') {
+        dQ[event].listeners.push(listener);
+
+        // Fire the event if _fireQ is not running:
+        if (!dQ[event].firing) {
+          _fireQ(dQ, event);
+        }
+      }
+    },
+
+    /**
+     * Adds the most priority task to the tasks queue.
+     *
+     * @method (arg1, arg2)
+     * @public
+     * @param {String}      the event name,
+     * @param {Function}    the event handler,
+     * @returns {}          -,
+     * @since 0.0.0
+     */
+    popQ(dQ, event, listener) {
+      _addEvent(dQ, event);
+
+      if (typeof event === 'string' && typeof listener === 'function') {
+        dQ[event].listeners.push(listener);
+
+        // Fire the event if _fireQ is not running:
+        if (!dQ[event].firing) {
+          _fireQL(dQ, event);
+        }
+      }
+    },
+  };
+
+
+  // END OF IIFE
+}());
+/* eslint-enable semi-style, no-underscore-dangle */

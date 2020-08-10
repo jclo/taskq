@@ -1,4 +1,4 @@
-/** ************************************************************************
+/** **************************************************************************
  *
  * A library that processes job tasks sequentially.
  *
@@ -34,132 +34,134 @@
  * @author       -
  * @since        0.0.0
  * @version      -
- * ********************************************************************** */
-/* global root */
+ * ************************************************************************ */
+/* global TQ, root */
 /* eslint-disable one-var, semi-style, no-underscore-dangle */
 
+'use strict';
 
-// -- Vendor Modules
-
-
-// -- Local Modules
-import TQ from './private/taskq';
+(function() {
+  // START OF IIFE
 
 
-// -- Local Constants
-// Saves the previous value of the library variable, so that it can be
-// restored later on, if noConflict is used.
-const previousTaskQ = root.TaskQ
+  // -- Module Path
+
+
+  // -- Local Modules
+
+
+  // -- Local Constants
+  // Saves the previous value of the library variable, so that it can be
+  // restored later on, if noConflict is used.
+  const previousTaskQ = root.TaskQ
+      ;
+
+
+  // -- Local Variables
+  let methods
     ;
 
 
-// -- Local Variables
-let methods
-  ;
+  // -- Public ---------------------------------------------------------------
 
-
-// -- Public ---------------------------------------------------------------
-
-/**
- * Returns the TaskQ object.
- * (Prototypal Instantiation Pattern)
- *
- * @constructor ()
- * @public
- * @param {}                -,
- * @returns {Object}        returns the TaskQ object,
- * @since 0.0.0
- */
-const TaskQ = function() {
-  const obj = Object.create(methods);
-  obj.library = {
-    name: '{{lib:name}}',
-    version: '{{lib:version}}',
+  /**
+   * Returns the TaskQ object.
+   * (Prototypal Instantiation Pattern)
+   *
+   * @constructor ()
+   * @public
+   * @param {}              -,
+   * @returns {Object}      returns the TaskQ object,
+   * @since 0.0.0
+   */
+  TaskQ = function() {
+    const obj = Object.create(methods);
+    obj.library = {
+      name: '{{lib:name}}',
+      version: '{{lib:version}}',
+    };
+    obj._dQ = {};
+    return obj;
   };
-  obj._dQ = {};
-  return obj;
-};
 
-// Attaches a constant to TaskQ that provides the version of the lib.
-TaskQ.VERSION = '{{lib:version}}';
+  // Attaches a constant to TaskQ that provides the version of the lib.
+  TaskQ.VERSION = '{{lib:version}}';
 
 
-// -- Private Static Methods -----------------------------------------------
-
-/**
- * Returns the internal objects for testing purpose.
- *
- * @method ()
- * @private
- * @param {}                -,
- * @returns {Object}        returns a list of internal objects,
- * @since 0.0.0
- */
-TaskQ._setTestMode = function() {
-  return [];
-};
-
-
-// -- Public Static Methods ------------------------------------------------
-
-/**
- * Returns a reference to this TaskQ object.
- *
- * Nota:
- * Running TaskQ in noConflic mode, returns the TaskQ variable to
- * its previous owner.
- *
- * @method ()
- * @public
- * @param {}                -,
- * @returns {Object}        returns the TaskQ object,
- * @since 0.0.0
- */
-/* istanbul ignore next */
-TaskQ.noConflict = function() {
-  /* eslint-disable-next-line no-param-reassign */
-  root.TaskQ = previousTaskQ;
-  return this;
-};
-
-
-// -- Public Methods -------------------------------------------------------
-
-methods = {
+  // -- Private Static Methods -----------------------------------------------
 
   /**
-   * Adds the least priority task to the task queue.
+   * Returns the internal objects for testing purpose.
    *
-   * @method (arg1, arg2)
-   * @public
-   * @param {String}        the event name,
-   * @param {Function}      the event handler,
-   * @returns {Object}      returns this,
+   * @method ()
+   * @private
+   * @param {}              -,
+   * @returns {Object}      returns a list of internal objects,
    * @since 0.0.0
    */
-  pushQ(event, listener) {
-    TQ.pushQ(this._dQ, event, listener);
-    return this;
-  },
+  TaskQ._setTestMode = function() {
+    return [];
+  };
+
+
+  // -- Public Static Methods ------------------------------------------------
 
   /**
-   * Adds the most priority task to the tasks queue.
+   * Returns a reference to this TaskQ object.
    *
-   * @method (arg1, arg2)
+   * Nota:
+   * Running TaskQ in noConflict mode, returns the TaskQ variable to its
+   * _ previous owner.
+   *
+   * @method ()
    * @public
-   * @param {String}        the event name,
-   * @param {Function}      the event handler,
-   * @returns {Object}      returns this,
+   * @param {}              -,
+   * @returns {Object}      returns the TaskQ object,
    * @since 0.0.0
    */
-  popQ(event, listener) {
-    TQ.popQ(this._dQ, event, listener);
+  /* istanbul ignore next */
+  TaskQ.noConflict = function() {
+    /* eslint-disable-next-line no-param-reassign */
+    root.TaskQ = previousTaskQ;
     return this;
-  },
-};
+  };
 
 
-// -- Export
-export default TaskQ;
+  // -- Public Methods -------------------------------------------------------
 
+  methods = {
+
+    /**
+     * Adds the least priority task to the task queue.
+     *
+     * @method (arg1, arg2)
+     * @public
+     * @param {String}        the event name,
+     * @param {Function}      the event handler,
+     * @returns {Object}      returns this,
+     * @since 0.0.0
+     */
+    pushQ(event, listener) {
+      TQ.pushQ(this._dQ, event, listener);
+      return this;
+    },
+
+    /**
+     * Adds the most priority task to the tasks queue.
+     *
+     * @method (arg1, arg2)
+     * @public
+     * @param {String}        the event name,
+     * @param {Function}      the event handler,
+     * @returns {Object}      returns this,
+     * @since 0.0.0
+     */
+    popQ(event, listener) {
+      TQ.popQ(this._dQ, event, listener);
+      return this;
+    },
+  };
+
+  // END OF IIFE
+}());
 /* eslint-enable one-var, semi-style, no-underscore-dangle */
