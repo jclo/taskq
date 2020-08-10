@@ -1,6 +1,6 @@
 // ESLint declarations:
 /* global describe, it */
-/* eslint one-var: 0, no-unused-vars: 0, semi-style: 0 */
+/* eslint one-var: 0, no-unused-vars: 0, semi-style: 0, no-underscore-dangle: 0 */
 
 
 // -- Vendor Modules
@@ -22,12 +22,21 @@ const should     = require('chai').should()
 module.exports = function(TaskQ) {
   describe('Test TaskQ:', () => {
     // Test the lib:
-    describe('Test TaskQ.VERSION and TaskQ.noConflict:', () => {
+    describe('Test TaskQ.VERSION, TaskQ.noConflict and TaskQ._setTestMode:', () => {
       it('Expects TaskQ.VERSION to return a string.', () => {
         expect(TaskQ.VERSION).to.be.a('string');
       });
       it('Expects TaskQ.noConflict to return a function.', () => {
         expect(TaskQ.noConflict).to.be.a('function');
+      });
+      it('Expects this function to return a function.', () => {
+        expect(TaskQ.noConflict()).to.be.a('function');
+      });
+      it('Expects TaskQ._setTestMode to return a function.', () => {
+        expect(TaskQ._setTestMode).to.be.a('function');
+      });
+      it('Expects this function to return an empty array.', () => {
+        expect(TaskQ._setTestMode()).to.be.an('array').that.has.lengthOf(0);
       });
     });
 

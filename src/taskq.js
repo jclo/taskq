@@ -14,6 +14,10 @@
  *  . TaskQ                       creates and returns the TaskQ object,
  *
  *
+ * Private Static Methods:
+ *  . _setTestMode                returns internal objects for testing purpose,
+ *
+ *
  * Public Static Methods:
  *  . noConflict                  returns a reference to this TaskQ object,
  *
@@ -24,7 +28,7 @@
  *
  *
  *
- * @namespace    TaskQ
+ * @namespace    -
  * @dependencies none
  * @exports      -
  * @author       -
@@ -66,14 +70,34 @@ let methods
  * @returns {Object}        returns the TaskQ object,
  * @since 0.0.0
  */
-function TaskQ() {
+const TaskQ = function() {
   const obj = Object.create(methods);
+  obj.library = {
+    name: '{{lib:name}}',
+    version: '{{lib:version}}',
+  };
   obj._dQ = {};
   return obj;
-}
+};
 
 // Attaches a constant to TaskQ that provides the version of the lib.
 TaskQ.VERSION = '{{lib:version}}';
+
+
+// -- Private Static Methods -----------------------------------------------
+
+/**
+ * Returns the internal objects for testing purpose.
+ *
+ * @method ()
+ * @private
+ * @param {}                -,
+ * @returns {Object}        returns a list of internal objects,
+ * @since 0.0.0
+ */
+TaskQ._setTestMode = function() {
+  return [];
+};
 
 
 // -- Public Static Methods ------------------------------------------------

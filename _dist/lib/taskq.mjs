@@ -13,6 +13,7 @@
 /* global define */
 /* eslint no-shadow: ['error', { 'allow': ['root'] }] */
 /* eslint strict: ["error", "function"] */
+const $__ES6GLOB = {};
 (function(root, factory) {
   'use strict';
 
@@ -31,7 +32,7 @@
     /* eslint-disable-next-line no-param-reassign */
     root.TaskQ = factory(root);
   }
-}(this, (root) => {
+}($__ES6GLOB, (root) => {
   'use strict';
 
   /* ***************************************************************************
@@ -416,3 +417,6 @@
   // Returns the library name:
   return $__TREE.src.taskq;
 }));
+
+// -- Export
+export default $__ES6GLOB.TaskQ
