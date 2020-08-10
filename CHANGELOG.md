@@ -3,7 +3,7 @@
 ### 0.0.7 (August 10, 2020)
 
   * Replaced Kdo by es6lib template to reduce the library size,
-  * ...,
+  * Release.
 
 
 ### 0.0.6 (August 10, 2020)
