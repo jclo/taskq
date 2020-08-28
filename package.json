@@ -1,6 +1,6 @@
 {
   "name": "@mobilabs/taskq",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "A library that processes tasks sequentially",
   "main": "_dist/lib/taskq.js",
   "minified": "_dist/lib/taskq.min.js",
@@ -13,7 +13,7 @@
     "dev": "gulp rundev",
     "test": "cross-env NODE_ENV=test nyc --reporter=lcov mocha ./test/main.js",
     "display-coverage": "opener ./coverage/lcov-report/index.html",
-    "check-coverage": "nyc check-coverage --statements 90 --branches 85 --functions 100 --lines 90",
+    "check-coverage": "nyc check-coverage --statements 90 --branches 85 --functions 100 --lines 95",
     "report-coverage": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report",
     "makedist": "gulp makedist",
@@ -43,7 +43,7 @@
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
     "del": "^5.1.0",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "gulp": "^4.0.2",
@@ -53,10 +53,11 @@
     "gulp-replace": "^1.0.0",
     "gulp-uglify-es": "^2.0.0",
     "husky": "^4.2.5",
-    "mocha": "^8.1.1",
+    "mocha": "^8.1.2",
     "nyc": "^15.1.0",
-    "open": "^7.1.0",
-    "opener": "^1.5.1"
+    "open": "^7.2.0",
+    "opener": "^1.5.1",
+    "@mobilabs/es6lib": "1.0.1"
   },
   "publishConfig": {
     "access": "public"

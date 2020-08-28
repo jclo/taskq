@@ -1,6 +1,6 @@
 // ESLint declarations:
-/* global describe, it */
-/* eslint one-var: 0, no-unused-vars: 0, semi-style: 0 */
+/* global describe */
+/* eslint one-var: 0, semi-style: 0 */
 
 'use strict';
 
@@ -8,13 +8,15 @@
 
 
 // -- Local Modules
-const TaskQ       = require('../index')
-    , constructor = require('./int/constructor')
-    , methods     = require('./int/methods')
+const TaskQ   = require('../index.js')
+    , pack    = require('../package.json')
+    , testlib = require('./int/lib')
+    , methods = require('./int/methods')
     ;
 
 
 // -- Local Constants
+const libname = 'TaskQ';
 
 
 // -- Local Variables
@@ -22,6 +24,6 @@ const TaskQ       = require('../index')
 
 // -- Main
 describe('Test TaskQ:', () => {
-  constructor(TaskQ);
+  testlib(TaskQ, libname, pack.version);
   methods(TaskQ);
 });

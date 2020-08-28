@@ -1,12 +1,12 @@
 /*! ****************************************************************************
- * TaskQ v0.0.7
+ * TaskQ v1.0.0
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
  * Copyright (c) 2020 Mobilabs <contact@mobilabs.fr> (http://www.mobilabs.fr).
  * Released under the MIT license. You may obtain a copy of the License
  * at: http://www.opensource.org/licenses/mit-license.php).
- * Built from ES6lib v1.0.0-beta.7.
+ * Built from ES6lib v1.0.1.
  * ************************************************************************** */
 // ESLint declarations
 /* global define */
@@ -72,6 +72,7 @@
    *
    *
    * Public Methods:
+   *  . whoami                      returns the library name and version,
    *  . pushQ                       adds the least priority task to the task queue,
    *  . popQ                        adds the most priority task to the tasks queue,
    *
@@ -123,22 +124,24 @@
      */
     TaskQ = function() {
       const obj = Object.create(methods);
-      obj.library = {
+      obj._library = {
         name: 'TaskQ',
-        version: '0.0.7',
+        version: '1.0.0',
       };
       obj._dQ = {};
       return obj;
     };
 
-    // Attaches a constant to TaskQ that provides the version of the lib.
-    TaskQ.VERSION = '0.0.7';
+    // Attaches constants to TaskQ that provide name and version of the lib.
+    TaskQ.NAME = 'TaskQ';
+    TaskQ.VERSION = '1.0.0';
 
 
     // -- Private Static Methods -----------------------------------------------
 
     /**
      * Returns the internal objects for testing purpose.
+     * (must not be deleted)
      *
      * @method ()
      * @private
@@ -155,6 +158,7 @@
 
     /**
      * Returns a reference to this TaskQ object.
+     * (must not be deleted)
      *
      * Nota:
      * Running TaskQ in noConflict mode, returns the TaskQ variable to its
@@ -166,7 +170,6 @@
      * @returns {Object}      returns the TaskQ object,
      * @since 0.0.0
      */
-    /* istanbul ignore next */
     TaskQ.noConflict = function() {
       /* eslint-disable-next-line no-param-reassign */
       root.TaskQ = previousTaskQ;
@@ -179,13 +182,27 @@
     methods = {
 
       /**
+       * Returns the library name and version.
+       * (must not be deleted)
+       *
+       * @method ()
+       * @public
+       * @param {}            -,
+       * @returns {Object}    returns the library name and version,
+       * @since 0.0.0
+       */
+      whoami() {
+        return this._library;
+      },
+
+      /**
        * Adds the least priority task to the task queue.
        *
        * @method (arg1, arg2)
        * @public
-       * @param {String}        the event name,
-       * @param {Function}      the event handler,
-       * @returns {Object}      returns this,
+       * @param {String}      the event name,
+       * @param {Function}    the event handler,
+       * @returns {Object}    returns this,
        * @since 0.0.0
        */
       pushQ(event, listener) {
@@ -198,9 +215,9 @@
        *
        * @method (arg1, arg2)
        * @public
-       * @param {String}        the event name,
-       * @param {Function}      the event handler,
-       * @returns {Object}      returns this,
+       * @param {String}      the event name,
+       * @param {Function}    the event handler,
+       * @returns {Object}    returns this,
        * @since 0.0.0
        */
       popQ(event, listener) {

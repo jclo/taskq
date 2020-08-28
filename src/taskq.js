@@ -23,6 +23,7 @@
  *
  *
  * Public Methods:
+ *  . whoami                      returns the library name and version,
  *  . pushQ                       adds the least priority task to the task queue,
  *  . popQ                        adds the most priority task to the tasks queue,
  *
@@ -76,7 +77,7 @@
    */
   TaskQ = function() {
     const obj = Object.create(methods);
-    obj.library = {
+    obj._library = {
       name: '{{lib:name}}',
       version: '{{lib:version}}',
     };
@@ -84,7 +85,8 @@
     return obj;
   };
 
-  // Attaches a constant to TaskQ that provides the version of the lib.
+  // Attaches constants to TaskQ that provide name and version of the lib.
+  TaskQ.NAME = '{{lib:name}}';
   TaskQ.VERSION = '{{lib:version}}';
 
 
@@ -92,6 +94,7 @@
 
   /**
    * Returns the internal objects for testing purpose.
+   * (must not be deleted)
    *
    * @method ()
    * @private
@@ -108,6 +111,7 @@
 
   /**
    * Returns a reference to this TaskQ object.
+   * (must not be deleted)
    *
    * Nota:
    * Running TaskQ in noConflict mode, returns the TaskQ variable to its
@@ -119,7 +123,6 @@
    * @returns {Object}      returns the TaskQ object,
    * @since 0.0.0
    */
-  /* istanbul ignore next */
   TaskQ.noConflict = function() {
     /* eslint-disable-next-line no-param-reassign */
     root.TaskQ = previousTaskQ;
@@ -132,13 +135,27 @@
   methods = {
 
     /**
+     * Returns the library name and version.
+     * (must not be deleted)
+     *
+     * @method ()
+     * @public
+     * @param {}            -,
+     * @returns {Object}    returns the library name and version,
+     * @since 0.0.0
+     */
+    whoami() {
+      return this._library;
+    },
+
+    /**
      * Adds the least priority task to the task queue.
      *
      * @method (arg1, arg2)
      * @public
-     * @param {String}        the event name,
-     * @param {Function}      the event handler,
-     * @returns {Object}      returns this,
+     * @param {String}      the event name,
+     * @param {Function}    the event handler,
+     * @returns {Object}    returns this,
      * @since 0.0.0
      */
     pushQ(event, listener) {
@@ -151,9 +168,9 @@
      *
      * @method (arg1, arg2)
      * @public
-     * @param {String}        the event name,
-     * @param {Function}      the event handler,
-     * @returns {Object}      returns this,
+     * @param {String}      the event name,
+     * @param {Function}    the event handler,
+     * @returns {Object}    returns this,
      * @since 0.0.0
      */
     popQ(event, listener) {
