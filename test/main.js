@@ -8,7 +8,7 @@
 
 
 // -- Local Modules
-const TaskQ   = require('../index.js')
+const TaskQ   = require('../index')
     , pack    = require('../package.json')
     , testlib = require('./int/lib')
     , methods = require('./int/methods')
@@ -24,6 +24,6 @@ const libname = 'TaskQ';
 
 // -- Main
 describe('Test TaskQ:', () => {
-  testlib(TaskQ, libname, pack.version);
+  testlib(TaskQ, libname, pack.version, 'without new');
   methods(TaskQ);
 });

@@ -1,13 +1,11 @@
 // ESLint declarations:
 /* global describe, it */
-/* eslint one-var: 0, no-unused-vars: 0, semi-style: 0, no-underscore-dangle: 0,
-  dot-notation: 0 */
+/* eslint one-var: 0, semi-style: 0, no-underscore-dangle: 0 */
 
 'use strict';
 
 // -- Vendor Modules
-const should     = require('chai').should()
-    , { expect } = require('chai')
+const { expect } = require('chai')
     ;
 
 
@@ -22,8 +20,6 @@ const should     = require('chai').should()
 
 // -- Main
 module.exports = function(TaskQ) {
-  // { _dQ: { aaa: { firing: true, listeners: [] } } }
-
   describe('Test TaskQ Methods:', () => {
     describe('Test TaskQ().pushQ():', () => {
       const taskQ = TaskQ();

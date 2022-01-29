@@ -1,12 +1,12 @@
 /*! ****************************************************************************
- * TaskQ v1.0.0
+ * TaskQ v1.0.1
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
- * Copyright (c) 2020 Mobilabs <contact@mobilabs.fr> (http://www.mobilabs.fr).
+ * Copyright (c) 2022 Mobilabs <contact@mobilabs.fr> (http://www.mobilabs.fr).
  * Released under the MIT license. You may obtain a copy of the License
  * at: http://www.opensource.org/licenses/mit-license.php).
- * Built from ES6lib v1.0.1.
+ * Built from ES6lib v1.0.13.
  * ************************************************************************** */
 // ESLint declarations
 /* global define */
@@ -126,7 +126,7 @@
       const obj = Object.create(methods);
       obj._library = {
         name: 'TaskQ',
-        version: '1.0.0',
+        version: '1.0.1',
       };
       obj._dQ = {};
       return obj;
@@ -134,7 +134,7 @@
 
     // Attaches constants to TaskQ that provide name and version of the lib.
     TaskQ.NAME = 'TaskQ';
-    TaskQ.VERSION = '1.0.0';
+    TaskQ.VERSION = '1.0.1';
 
 
     // -- Private Static Methods -----------------------------------------------
