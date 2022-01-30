@@ -88,7 +88,7 @@ TaskQ.noConflict();
 [npm-url]: https://www.npmjs.com/package/@mobilabs/taskq
 [release-url]: https://github.com/jclo/taskq/tags
 [commit-url]: https://github.com/jclo/taskq/commits/master
-[travis-url]: https://travis-ci.org/jclo/taskq
+[travis-url]: https://app.travis-ci.com/jclo/taskq
 [coveralls-url]: https://coveralls.io/github/jclo/taskq?branch=master
 [dependencies-url]: https://david-dm.org/jclo/taskq
 [devdependencies-url]: https://david-dm.org/jclo/taskq?type=dev
