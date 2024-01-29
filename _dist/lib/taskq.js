@@ -1,5 +1,5 @@
 /*! ****************************************************************************
- * TaskQ v1.0.1
+ * TaskQ v1.0.2
  *
  * A library that processes tasks sequentially.
  * (you can download it from npm or github repositories)
@@ -127,7 +127,7 @@
       const obj = Object.create(methods);
       obj._library = {
         name: 'TaskQ',
-        version: '1.0.1',
+        version: '1.0.2',
       };
       obj._dQ = {};
       return obj;
@@ -135,7 +135,7 @@
 
     // Attaches constants to TaskQ that provide name and version of the lib.
     TaskQ.NAME = 'TaskQ';
-    TaskQ.VERSION = '1.0.1';
+    TaskQ.VERSION = '1.0.2';
 
 
     // -- Private Static Methods -----------------------------------------------

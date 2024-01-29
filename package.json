@@ -1,6 +1,6 @@
 {
   "name": "@mobilabs/taskq",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A library that processes tasks sequentially",
   "main": "_dist/lib/taskq.js",
   "minified": "_dist/lib/taskq.min.js",
